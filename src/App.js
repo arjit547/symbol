@@ -3,7 +3,7 @@ import './App.css';
   
 function App() {
     return ( 
-      <h1> Seasia </h1>
+      <h1> Seasia Infotech </h1>
     );
 }
   
