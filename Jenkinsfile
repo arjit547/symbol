@@ -10,6 +10,15 @@ cp -R build/* /var/www/html/''', execTimeout: 120000, flatten: false, makeEmptyD
 
             }
         }
+          
+         stage("Deploy") {
+            steps {
+                
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'jk-cicd-2234', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''
+cp -R build/* /var/www/html/''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+
+            }
+        }
         
     }
 }
