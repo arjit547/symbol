@@ -3,7 +3,7 @@ import './App.css';
   
 function App() {
     return ( 
-      <center><h1>  MoogleLabs Mohali  </h1></center>
+      <center><h1>  MoogleLabs Group of Company  </h1></center>
     );
 }
   
