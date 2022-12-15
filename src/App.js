@@ -3,7 +3,7 @@ import './App.css';
   
 function App() {
     return ( 
-      <center><h1>  MoogleLabs DevOps </h1></center>
+      <center><h1>  MoogleLabs  </h1></center>
     );
 }
   
