@@ -1,2 +1,1 @@
-sudo cd /var/www/html/
-sudo rm -rf *
+sudo yum update
