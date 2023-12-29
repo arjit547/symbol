@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BUCKET_NAME="owzapsst"
-DC_VERSION="6.4.0"
+DC_VERSION="9.0.7"
 
 # Download and run OWASP Dependency-Check from GitHub releases
 wget "https://github.com/jeremylong/DependencyCheck/releases/download/v${DC_VERSION}/dependency-check-${DC_VERSION}-release.zip" -O dependency-check.zip
@@ -28,11 +28,12 @@ fi
 
 cd "$DC_DIRECTORY"
 
-# Run Dependency-Check scan
-./bin/dependency-check.sh --scan .
+# Run Dependency-Check scan and capture log
+./bin/dependency-check.sh --scan . 2>&1 | tee dependency-check-scan.log
 
 if [ $? -ne 0 ]; then
   echo "Error running Dependency-Check scan."
+  cat dependency-check-scan.log  # Print detailed logs
   exit 1
 fi
 
