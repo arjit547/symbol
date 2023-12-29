@@ -1,10 +1,10 @@
 #!/bin/bash
 
 BUCKET_NAME="owzapsst"
-DC_VERSION="6.4.0"  # Replace with a version that is known to be available on Bintray
+DC_VERSION="6.4.0"
 
-# Download and run OWASP Dependency-Check
-wget "https://dl.bintray.com/jeremy-long/owasp/dependency-check-${DC_VERSION}-release.zip" -O dependency-check.zip
+# Download and run OWASP Dependency-Check from GitHub releases
+wget "https://github.com/jeremylong/DependencyCheck/releases/download/v${DC_VERSION}/dependency-check-${DC_VERSION}-release.zip" -O dependency-check.zip
 
 if [ $? -ne 0 ]; then
   echo "Error downloading Dependency-Check ZIP."
