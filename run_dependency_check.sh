@@ -3,7 +3,7 @@
 BUCKET_NAME="owzapsst"
 
 # Fetch the latest version of Dependency-Check from Bintray
-DC_VERSION=$(curl -s https://api.bintray.com/packages/jeremy-long/owasp/dependency-check | jq -r '.latest_version')
+DC_VERSION=$(curl -s https://api.bintray.com/packages/jeremy-long/owasp/dependency-check | grep -oP '"latest_version": "\K[^"]+')
 
 # Check if the version is available
 if [ -z "$DC_VERSION" ]; then
