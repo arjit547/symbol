@@ -29,10 +29,11 @@ fi
 cd "$DC_DIRECTORY"
 
 # Run Dependency-Check scan
-./bin/dependency-check.sh --scan .
+./bin/dependency-check.sh --scan . 2>&1 | tee dependency-check-scan.log
 
 if [ $? -ne 0 ]; then
   echo "Error running Dependency-Check scan."
+  cat dependency-check-scan.log  # Print detailed logs
   exit 1
 fi
 
