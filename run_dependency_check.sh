@@ -38,9 +38,12 @@ if [ $? -ne 0 ]; then
 fi
 
 # Sync Dependency-Check reports to S3 bucket
-aws s3 sync .dependency-check/ s3://${BUCKET_NAME}/dependency-check
-
-if [ $? -ne 0 ]; then
-  echo "Error syncing Dependency-Check reports to S3."
-  exit 1
+if [ -d .dependency-check ]; then
+  aws s3 sync .dependency-check/ s3://${BUCKET_NAME}/dependency-check
+  if [ $? -ne 0 ]; then
+    echo "Error syncing Dependency-Check reports to S3."
+    exit 1
+  fi
+else
+  echo "The directory .dependency-check/ does not exist. Skipping S3 sync."
 fi
