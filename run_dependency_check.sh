@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BUCKET_NAME="owzapsst"
-DC_VERSION="6.2.1"  # Use a version that is available on Bintray
+DC_VERSION="6.4.2"  # Replace with the latest available version
 
 # Download and run OWASP Dependency-Check
 wget "https://dl.bintray.com/jeremy-long/owasp/dependency-check-${DC_VERSION}-release.zip" -O dependency-check.zip
