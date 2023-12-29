@@ -18,7 +18,15 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-cd dependency-check-${DC_VERSION}-release
+# Find the Dependency-Check directory
+DC_DIRECTORY=$(find . -maxdepth 1 -type d -name 'dependency-check*')
+
+if [ -z "$DC_DIRECTORY" ]; then
+  echo "Error finding Dependency-Check directory."
+  exit 1
+fi
+
+cd "$DC_DIRECTORY"
 
 # Run Dependency-Check scan
 ./bin/dependency-check.sh --scan .
