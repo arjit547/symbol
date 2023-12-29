@@ -44,6 +44,13 @@ if [ -d .dependency-check ]; then
     echo "Error syncing Dependency-Check reports to S3."
     exit 1
   fi
+
+  # Upload HTML report to S3
+  aws s3 cp ./dependency-check-report.html s3://${BUCKET_NAME}/dependency-check/dependency-check-report.html
+  if [ $? -ne 0 ]; then
+    echo "Error uploading HTML report to S3."
+    exit 1
+  fi
 else
-  echo "The directory .dependency-check/ does not exist. Skipping S3 sync."
+  echo "The directory .dependency-check/ does not exist. Skipping S3 sync and HTML upload."
 fi
