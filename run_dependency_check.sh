@@ -1,15 +1,7 @@
 #!/bin/bash
 
 BUCKET_NAME="owzapsst"
-
-# Fetch the latest version of Dependency-Check from Bintray
-DC_VERSION=$(curl -s https://api.bintray.com/packages/jeremy-long/owasp/dependency-check | grep -oP '"latest_version": "\K[^"]+')
-
-# Check if the version is available
-if [ -z "$DC_VERSION" ]; then
-  echo "Error fetching the latest version of Dependency-Check from Bintray."
-  exit 1
-fi
+DC_VERSION="6.4.0"  # Replace with a version that is known to be available on Bintray
 
 # Download and run OWASP Dependency-Check
 wget "https://dl.bintray.com/jeremy-long/owasp/dependency-check-${DC_VERSION}-release.zip" -O dependency-check.zip
