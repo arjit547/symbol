@@ -2,6 +2,7 @@
 
 DC_VERSION="9.0.7"
 S3_BUCKET="instore"
+REPORTS_DIRECTORY="reports"
 
 # Download and run OWASP Dependency-Check from GitHub releases
 wget "https://github.com/jeremylong/DependencyCheck/releases/download/v${DC_VERSION}/dependency-check-${DC_VERSION}-release.zip" -O dependency-check.zip
@@ -29,7 +30,7 @@ fi
 cd "$DC_DIRECTORY"
 
 # Run Dependency-Check scan and capture log
-./bin/dependency-check.sh --scan . 2>&1 | tee dependency-check-scan.log
+./bin/dependency-check.sh --scan . --out "$REPORTS_DIRECTORY" 2>&1 | tee dependency-check-scan.log
 
 if [ $? -ne 0 ]; then
   echo "Error running Dependency-Check scan."
@@ -38,17 +39,17 @@ if [ $? -ne 0 ]; then
 fi
 
 # Check if reports directory exists
-if [ -d reports ]; then
+if [ -d "$REPORTS_DIRECTORY" ]; then
   # Sync Dependency-Check reports to S3 bucket
-  aws s3 sync reports/ "s3://${S3_BUCKET}/dependency-check/"
+  aws s3 sync "$REPORTS_DIRECTORY"/ "s3://${S3_BUCKET}/dependency-check/"
   if [ $? -ne 0 ]; then
     echo "Error syncing Dependency-Check reports to S3."
     exit 1
   fi
 
   # Upload HTML report to S3
-  if [ -f reports/dependency-check-report.html ]; then
-    aws s3 cp reports/dependency-check-report.html "s3://${S3_BUCKET}/dependency-check/"
+  if [ -f "$REPORTS_DIRECTORY/dependency-check-report.html" ]; then
+    aws s3 cp "$REPORTS_DIRECTORY/dependency-check-report.html" "s3://${S3_BUCKET}/dependency-check/"
     if [ $? -ne 0 ]; then
       echo "Error uploading HTML report to S3."
       exit 1
