@@ -38,6 +38,9 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Remove previous contents from S3 bucket
+aws s3 rm --recursive "s3://${S3_BUCKET}/dependency-check/"
+
 # Check if reports directory exists
 if [ -d "$REPORTS_DIRECTORY" ]; then
   # Sync Dependency-Check reports to S3 bucket
