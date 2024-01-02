@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BUCKET_NAME="instore"
+#BUCKET_NAME="instore"
 DC_VERSION="9.0.7"
 
 # Download and run OWASP Dependency-Check from GitHub releases
@@ -39,14 +39,14 @@ fi
 
 # Sync Dependency-Check reports to S3 bucket
 if [ -d .dependency-check ]; then
-  aws s3 sync .dependency-check/ s3://${BUCKET_NAME}/dependency-check
+  aws s3 sync .dependency-check/ s3://instore/dependency-check
   if [ $? -ne 0 ]; then
     echo "Error syncing Dependency-Check reports to S3."
     exit 1
   fi
 
   # Upload HTML report to S3
-  aws s3 cp ./dependency-check-report.html s3://${BUCKET_NAME}/dependency-check/dependency-check-report.html
+  aws s3 cp ./dependency-check-report.html s3://instore/dependency-check/dependency-check-report.html
   if [ $? -ne 0 ]; then
     echo "Error uploading HTML report to S3."
     exit 1
