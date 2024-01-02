@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BUCKET_NAME="owzapsst"
+BUCKET_NAME="instore"
 DC_VERSION="9.0.7"
 
 # Download and run OWASP Dependency-Check from GitHub releases
