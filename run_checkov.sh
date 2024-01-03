@@ -14,6 +14,10 @@ echo "Environment variables after installing Checkov:"
 env
 echo "PATH after installing Checkov: $PATH"
 
+# Print Checkov binary details
+echo "Checkov binary details:"
+ls -l /usr/local/bin/checkov
+
 # Run Checkov on your IaC code and generate text report
 /usr/local/bin/checkov -d . -o txt -f > checkov_output.txt
 
