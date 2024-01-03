@@ -17,11 +17,11 @@ echo "PATH after installing Checkov: $PATH"
 echo "Checkov binary details:"
 which checkov
 
-# Run Checkov on your IaC code and generate HTML report
-$(which checkov) -d . -o html -f > checkov_output.html
+# Run Checkov on your IaC code and generate text report
+$(which checkov) -d . -f json -o checkov_output.json
 
 # Set your S3 bucket name
 BUCKET_NAME="cerebruchecov-artifact"
 
 # Upload the Checkov report to S3
-aws s3 cp checkov_output.html s3://${BUCKET_NAME}/checkov_output.html
+aws s3 cp checkov_output.json s3://${BUCKET_NAME}/checkov_output.json
