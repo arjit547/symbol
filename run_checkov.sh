@@ -6,7 +6,7 @@ env
 echo "PATH before installing Checkov: $PATH"
 
 # Install Checkov
-pip install checkov
+pip install --upgrade checkov
 
 # Print environment variables after installing Checkov
 echo "Environment variables after installing Checkov:"
