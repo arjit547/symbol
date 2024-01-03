@@ -7,13 +7,13 @@ pip install --upgrade checkov
 checkov -d .
 
 # Save Checkov output to a file
-checkov -d . -o checkov_output.txt
+checkov -d . -o json > checkov_output.json
 
 # Set your S3 bucket name
 BUCKET_NAME="cerebruchecov-artifact"
 
 # Upload the Checkov report to S3
-aws s3 cp checkov_output.txt s3://${BUCKET_NAME}/checkov_output.txt
+aws s3 cp checkov_output.json s3://${BUCKET_NAME}/checkov_output.json
 
 # Optional: Fail the CI/CD pipeline if Checkov identifies any issues
 if [ $? -ne 0 ]; then
