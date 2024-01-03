@@ -1,33 +1,24 @@
 #!/bin/bash
 
-# Print environment variables before installing Checkov
-echo "Environment variables before installing Checkov:"
-env
-echo "PATH before installing Checkov: $PATH"
-
 # Install Checkov
 pip install --upgrade checkov
 
-# Print environment variables after installing Checkov
-echo "Environment variables after installing Checkov:"
-env
-echo "PATH after installing Checkov: $PATH"
+# Run Checkov on Terraform files
+checkov -d .
 
-# Print Checkov binary details
-echo "Checkov binary details:"
-which checkov
+# Save Checkov output to a file
+checkov -d . -o checkov_output.txt
 
 # Set your S3 bucket name
 BUCKET_NAME="cerebruchecov-artifact"
 
-# Remove previous files from S3 bucket
-aws s3 rm s3://${BUCKET_NAME} --recursive
-
-# Run Checkov on your IaC code and capture both stdout and stderr
-checkov_output=$(checkov -d . 2>&1 | sed '/^\s/d')
-
-# Save Checkov output to a file
-echo "$checkov_output" > checkov_output.txt
-
 # Upload the Checkov report to S3
 aws s3 cp checkov_output.txt s3://${BUCKET_NAME}/checkov_output.txt
+
+# Optional: Fail the CI/CD pipeline if Checkov identifies any issues
+if [ $? -ne 0 ]; then
+  echo "Checkov found issues in your Terraform code. Please review the output."
+  exit 1
+else
+  echo "Checkov scan passed. No issues found."
+fi
