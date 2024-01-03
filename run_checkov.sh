@@ -18,7 +18,7 @@ echo "Checkov binary details:"
 which checkov
 
 # Run Checkov on your IaC code and generate text report
-$(which checkov) -d . -f json -o checkov_output.json
+$(which checkov) -d . -f json > checkov_output.json
 
 # Set your S3 bucket name
 BUCKET_NAME="cerebruchecov-artifact"
