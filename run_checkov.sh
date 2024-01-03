@@ -23,12 +23,8 @@ BUCKET_NAME="cerebruchecov-artifact"
 # Remove previous files from S3 bucket
 aws s3 rm s3://${BUCKET_NAME} --recursive
 
-# Run Checkov on your IaC code and generate CLI output
-checkov_output=$(checkov -d . 2>&1)
-
-# Print Checkov output for debugging
-echo "Checkov output:"
-echo "$checkov_output"
+# Run Checkov on your IaC code and capture both stdout and stderr
+checkov_output=$(checkov -d . 2>&1 | grep -v "Completed")
 
 # Save Checkov output to a file
 echo "$checkov_output" > checkov_output.txt
