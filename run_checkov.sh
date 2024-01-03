@@ -9,6 +9,9 @@ checkov -d .
 # Save Checkov output to a file
 checkov -d . -o json > checkov_output.json
 
+# Print the contents of the Checkov output file
+cat checkov_output.json
+
 # Set your S3 bucket name
 BUCKET_NAME="cerebruchecov-artifact"
 
