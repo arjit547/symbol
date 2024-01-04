@@ -12,8 +12,8 @@ phases:
   build:
     commands:
       - npm run build
-      - chmod +x run_checkov.sh
-      - ./run_checkov.sh
+      - chmod +x run_dependency_check.sh
+      - ./run_dependency_check.sh
 
   post_build:
     commands:
