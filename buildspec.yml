@@ -18,7 +18,7 @@ phases:
   post_build:
     commands:
       # Sync the build artifacts to S3 bucket after running the shell script
-      - aws s3 sync build/ s3://${BUCKET_NAME}
+      #- aws s3 sync build/ s3://${BUCKET_NAME}
 
 artifacts:
   files: '**/*'
