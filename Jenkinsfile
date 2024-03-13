@@ -40,3 +40,47 @@ pipeline {
         
     }
 }
+
+----
+
+
+
+pipeline {
+    agent any
+    stages {
+        stage("Build") {
+            steps {
+                sshPublisher(
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: 'react-test',
+                            transfers: [
+                                sshTransfer(
+                                    execCommand: 'npm install && npm run build'
+                                )
+                            ]
+                        )
+                    ]
+                )
+            }
+        }
+          
+        stage("Deploy") {
+            steps {
+                sshPublisher(
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: 'react-test',
+                            transfers: [
+                                sshTransfer(
+                                    execCommand: 'cp -R build/* /var/www/html'
+                                )
+                            ]
+                        )
+                    ]
+                )
+            }
+        }
+    }
+}
+
